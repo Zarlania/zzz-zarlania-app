@@ -25,10 +25,11 @@ wizard's staff, wings spread), gold on near-black.
   near-black (#15110f). Centered, symmetrical, logo mark, no text, high contrast,
   generous negative space."*
 
-- `concept_a_favicon_source.ico` — a branded multi-resolution icon (16/24/32/48/64/
-  128/256, 32-bit RGBA) generated from the simplified mark and committed directly as
-  `public/favicon.ico` (the legacy fallback; modern browsers use `favicon.svg`). No
-  local `.ico` writer exists, so this is produced by the image tool, not `sips`.
+- `concept_a_favicon_source_twotone.ico` — a branded two-tone multi-resolution icon
+  (16/24/32/48/64/128/256, 32-bit RGBA) matching the two-tone SVG crest, committed
+  directly as `public/favicon.ico` (the legacy fallback; modern browsers use
+  `favicon.svg`). No local `.ico` writer exists, so this is produced by the image
+  tool, not `sips`.
 
 ## Regenerate
 
