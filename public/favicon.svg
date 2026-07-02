@@ -1,14 +1,47 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Zarlania">
   <style>
-    .brand { fill: #eeb03a; stroke: #eeb03a; }
-    .action { fill: #e2622a; stroke: #e2622a; }
+    .brand { fill: #eeb03a; }
+    .brand-stroke { stroke: #eeb03a; }
+    .action { fill: #e2622a; }
     @media (prefers-color-scheme: light) {
-      .brand { fill: #b0872a; stroke: #b0872a; }
-      .action { fill: #276b48; stroke: #276b48; }
+      .brand { fill: #b0872a; }
+      .brand-stroke { stroke: #b0872a; }
+      .action { fill: #276b48; }
     }
   </style>
-  <path class="brand" d="M32 5 L38 12 L32 20 L26 12 Z" />
-  <line class="brand" x1="32" y1="21" x2="32" y2="57" fill="none" stroke-width="3.4" stroke-linecap="round" />
-  <path class="action" d="M30 55 C 21 55 21 47 30 47 C 41 47 41 37 30 37 C 20 37 20 28 31 27" fill="none" stroke-width="3.6" stroke-linecap="round" />
-  <path class="action" d="M31 27 C 30 22 33 18.5 38 19 L35 22 L40.5 22.5 C 39 26.5 34 28 31 27 Z" stroke="none" />
+
+  <!-- wings: right + mirrored left -->
+  <g class="brand">
+    <path d="M34 28 Q 45 11 59 12 L 55 23 L 51 19 L 48 27 L 44 22 L 41 30 L 38 24 Z" />
+    <path d="M59 12 L61 9 L59.5 13 Z" />
+  </g>
+  <g class="brand" transform="translate(64,0) scale(-1,1)">
+    <path d="M34 28 Q 45 11 59 12 L 55 23 L 51 19 L 48 27 L 44 22 L 41 30 L 38 24 Z" />
+    <path d="M59 12 L61 9 L59.5 13 Z" />
+  </g>
+
+  <!-- staff -->
+  <rect class="brand" x="30.7" y="13" width="2.6" height="39" rx="1.1" />
+
+  <!-- crystal (glowing gem) -->
+  <path class="action" d="M32 2 L37.5 10 L32 19 L26.5 10 Z" />
+
+  <!-- spearhead base -->
+  <rect class="brand" x="28.5" y="49.5" width="7" height="1.8" rx="0.6" />
+  <path class="brand" d="M32 62 L36.5 51 L27.5 51 Z" />
+
+  <!-- coiled dragon body -->
+  <path
+    class="brand-stroke"
+    d="M32 49 C 22 49 22 40 32 40 C 43 40 43 31 32 31 C 26 31 25 29 27 28"
+    fill="none"
+    stroke-width="4.4"
+    stroke-linecap="round"
+  />
+
+  <!-- dragon head: open-maw side profile rising toward the gem -->
+  <path
+    class="brand"
+    d="M27.5 29 C 25 27 25 23 27.5 22 L 24 15 L 28.5 19.5 L 30.5 17.5 L 37 14 L 33 18.8 L 36.5 19.6 L 31 21.4 L 29.8 24 C 29 26 28 27.5 27.5 29 Z"
+  />
 </svg>
