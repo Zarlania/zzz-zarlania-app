@@ -14,15 +14,21 @@
       // No-flash theme init: runs before first paint. Mirrors ThemeService's
       // resolution; key must stay in sync with THEME_STORAGE_KEY ('zarlania-theme').
       (function () {
+        var t = null;
         try {
-          var t = localStorage.getItem('zarlania-theme');
-          if (t !== 'light' && t !== 'dark') {
-            t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-          }
-          document.documentElement.setAttribute('data-theme', t);
+          t = localStorage.getItem('zarlania-theme');
         } catch (e) {
-          document.documentElement.setAttribute('data-theme', 'dark');
+          // Storage blocked/unavailable: treat as no stored value and fall back to OS preference,
+          // matching ThemeService.readInitial so light-mode users don't flash dark then correct.
         }
+        if (t !== 'light' && t !== 'dark') {
+          try {
+            t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+          } catch (e) {
+            t = 'dark';
+          }
+        }
+        document.documentElement.setAttribute('data-theme', t);
       })();
     </script>
   </head>

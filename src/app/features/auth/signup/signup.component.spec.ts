@@ -1,6 +1,6 @@
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { provideRouter, Router } from '@angular/router';
-import { of, throwError } from 'rxjs';
+import { of, Subject, throwError } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { SignupComponent } from './signup.component';
 import { ApiService } from '../../../api.service';
@@ -60,6 +60,27 @@ describe('SignupComponent', () => {
       email: 'aldric@realm.com',
       username: 'aldric',
     });
+    expect(navSpy).toHaveBeenCalledWith(['/home'], { state: { account } });
+  });
+
+  it('disables submit while the request is in flight', () => {
+    const pending = new Subject<Account>();
+    const createAccount = jest.fn().mockReturnValue(pending);
+    const { fixture, navSpy } = setup({ createAccount });
+    const button = fixture.nativeElement.querySelector(
+      'button[type="submit"]',
+    ) as HTMLButtonElement;
+    type(fixture, 'email', 'aldric@realm.com');
+    type(fixture, 'username', 'aldric');
+    submit(fixture);
+
+    expect(button.disabled).toBe(true);
+    expect(button.textContent).toContain('Creating');
+    expect(navSpy).not.toHaveBeenCalled();
+
+    pending.next(account);
+    pending.complete();
+    fixture.detectChanges();
     expect(navSpy).toHaveBeenCalledWith(['/home'], { state: { account } });
   });
 

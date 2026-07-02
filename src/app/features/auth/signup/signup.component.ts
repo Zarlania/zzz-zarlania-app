@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router, RouterLink } from '@angular/router';
@@ -43,35 +44,9 @@ import { ApiService } from '../../../api.service';
       <p class="alt">Already have one? <a routerLink="/login">Log in</a></p>
     </section>
   `,
+  styleUrls: ['../auth-forms.css'],
   styles: [
     `
-      .auth {
-        max-width: 24rem;
-        margin: 0 auto;
-        padding: var(--space-8) var(--space-6);
-      }
-      .sub {
-        color: var(--color-text-muted);
-        margin: 0 0 var(--space-6);
-      }
-      .field {
-        display: flex;
-        flex-direction: column;
-        gap: var(--space-1);
-        margin-bottom: var(--space-4);
-      }
-      .field span {
-        font-size: 0.8rem;
-        color: var(--color-text-muted);
-      }
-      .field input {
-        background: var(--color-surface);
-        border: 1px solid var(--color-border);
-        border-radius: var(--radius-md);
-        padding: var(--space-2) var(--space-3);
-        color: var(--color-text);
-        font: inherit;
-      }
       .field-error,
       .form-error {
         color: var(--color-action);
@@ -80,25 +55,6 @@ import { ApiService } from '../../../api.service';
       .form-error {
         margin: 0 0 var(--space-3);
       }
-      .btn-primary {
-        width: 100%;
-        background: var(--color-action);
-        color: var(--color-on-action);
-        border: none;
-        border-radius: var(--radius-md);
-        padding: var(--space-3);
-        font-weight: 700;
-        cursor: pointer;
-      }
-      .btn-primary:disabled {
-        opacity: 0.6;
-        cursor: default;
-      }
-      .alt {
-        margin-top: var(--space-4);
-        color: var(--color-text-muted);
-        font-size: 0.85rem;
-      }
     `,
   ],
 })
@@ -106,6 +62,7 @@ export class SignupComponent {
   private readonly fb = inject(FormBuilder);
   private readonly api = inject(ApiService);
   private readonly router = inject(Router);
+  private readonly destroyRef = inject(DestroyRef);
 
   readonly submitting = signal(false);
   readonly errorMessage = signal('');
@@ -127,18 +84,21 @@ export class SignupComponent {
     }
     this.submitting.set(true);
     this.errorMessage.set('');
-    this.api.createAccount(this.form.getRawValue()).subscribe({
-      next: (account) => {
-        void this.router.navigate(['/home'], { state: { account } });
-      },
-      error: (err: HttpErrorResponse) => {
-        this.submitting.set(false);
-        this.errorMessage.set(
-          err.status === 409
-            ? 'That email or username is already taken.'
-            : 'Something went wrong creating your vault. Please try again.',
-        );
-      },
-    });
+    this.api
+      .createAccount(this.form.getRawValue())
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (account) => {
+          void this.router.navigate(['/home'], { state: { account } });
+        },
+        error: (err: HttpErrorResponse) => {
+          this.submitting.set(false);
+          this.errorMessage.set(
+            err.status === 409
+              ? 'That email or username is already taken.'
+              : 'Something went wrong creating your vault. Please try again.',
+          );
+        },
+      });
   }
 }

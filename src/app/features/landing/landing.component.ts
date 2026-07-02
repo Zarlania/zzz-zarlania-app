@@ -224,7 +224,9 @@ export class LandingComponent {
     this.meta.updateTag({ property: 'og:description', content: LandingComponent.DESCRIPTION });
     this.meta.updateTag({ property: 'og:type', content: 'website' });
     this.meta.updateTag({ property: 'og:url', content: LandingComponent.ORIGIN });
-    this.meta.updateTag({ name: 'twitter:card', content: 'summary_large_image' });
+    // Use the imageless card until branding art (og:image/twitter:image) exists; a
+    // 'summary_large_image' card without an image renders as a broken/plain preview.
+    this.meta.updateTag({ name: 'twitter:card', content: 'summary' });
     this.meta.updateTag({ name: 'twitter:title', content: LandingComponent.TITLE });
     this.meta.updateTag({ name: 'twitter:description', content: LandingComponent.DESCRIPTION });
   }
