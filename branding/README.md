@@ -11,11 +11,9 @@ wizard's staff, wings spread), gold on near-black.
 
 ## Masters
 
-- `mark-master.png` — the **simplified / flat** single-color mark, square, gold on
-  black. Source for `public/apple-touch-icon.png`, `public/icon-192.png`,
-  `public/icon-512.png`.
-  Prompt: *"A minimal single-color silhouette version of the mark, extremely simple,
-  readable at 16px, bold shapes only, no fine detail."* (rendered square on #15110f)
+- `mark-master.png` — the **two-tone crest** (gold wings/prongs, ember dragon body +
+  crystal), square on black, matching the vector `favicon.svg` / `LogoComponent`.
+  Source for `public/apple-touch-icon.png`, `public/icon-192.png`, `public/icon-512.png`.
 
 - `og-crest.png` — the **detailed** shaded crest (glowing crystal, ember accents).
   Source for `public/og-image.jpg` (1200×630 social preview; JPEG, black-padded).
