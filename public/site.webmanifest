@@ -1,0 +1,13 @@
+{
+  "name": "Zarlania",
+  "short_name": "Zarlania",
+  "description": "Catalog, index, and track the value of your card collections in one vault.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#15110f",
+  "theme_color": "#15110f",
+  "icons": [
+    { "src": "icon-192.png", "type": "image/png", "sizes": "192x192" },
+    { "src": "icon-512.png", "type": "image/png", "sizes": "512x512" }
+  ]
+}

@@ -38,3 +38,69 @@ describe('index.html branding wiring', () => {
     expect(indexHtml).toContain('content="#f3edde" media="(prefers-color-scheme: light)"');
   });
 });
+
+// PNG size without any external tool: 8-byte signature, then IHDR whose
+// width is a big-endian uint32 at byte 16 and height at byte 20.
+function pngSize(file: string): { width: number; height: number } {
+  const b = readFileSync(join(publicDir, file));
+  return { width: b.readUInt32BE(16), height: b.readUInt32BE(20) };
+}
+
+// JPEG size: walk the marker segments to the Start-Of-Frame (SOFn), whose
+// payload holds height (2 BE) then width (2 BE) after a 1-byte precision.
+function jpegSize(file: string): { width: number; height: number } {
+  const b = readFileSync(join(publicDir, file));
+  let o = 2; // skip SOI (FFD8)
+  while (o < b.length) {
+    if (b[o] !== 0xff) {
+      o++;
+      continue;
+    }
+    const marker = b[o + 1];
+    // SOF0..SOF15 carry the frame dimensions; DHT/JPG/DAC do not.
+    if (marker >= 0xc0 && marker <= 0xcf && marker !== 0xc4 && marker !== 0xc8 && marker !== 0xcc) {
+      return { height: b.readUInt16BE(o + 5), width: b.readUInt16BE(o + 7) };
+    }
+    o += 2 + b.readUInt16BE(o + 2); // skip this segment
+  }
+  throw new Error('no SOF marker found');
+}
+
+describe('raster icon set', () => {
+  it('apple-touch-icon is 180x180', () => {
+    expect(pngSize('apple-touch-icon.png')).toEqual({ width: 180, height: 180 });
+  });
+
+  it('manifest icons are 192 and 512 square', () => {
+    expect(pngSize('icon-192.png')).toEqual({ width: 192, height: 192 });
+    expect(pngSize('icon-512.png')).toEqual({ width: 512, height: 512 });
+  });
+
+  it('og-image is a JPEG at the standard 1200x630 social size', () => {
+    expect(jpegSize('og-image.jpg')).toEqual({ width: 1200, height: 630 });
+  });
+});
+
+describe('site.webmanifest', () => {
+  const manifest = JSON.parse(readFileSync(join(publicDir, 'site.webmanifest'), 'utf8'));
+
+  it('names the app and sets brand-consistent colors', () => {
+    expect(manifest.name).toBe('Zarlania');
+    expect(manifest.theme_color).toBe('#15110f');
+    expect(manifest.background_color).toBe('#15110f');
+    expect(manifest.display).toBe('standalone');
+  });
+
+  it('references the 192 and 512 icons', () => {
+    const srcs = manifest.icons.map((i: { src: string }) => i.src);
+    expect(srcs).toContain('icon-192.png');
+    expect(srcs).toContain('icon-512.png');
+  });
+});
+
+describe('index.html icon/manifest wiring', () => {
+  it('links the apple-touch-icon and the web manifest', () => {
+    expect(indexHtml).toContain('<link rel="apple-touch-icon" href="apple-touch-icon.png"');
+    expect(indexHtml).toContain('<link rel="manifest" href="site.webmanifest"');
+  });
+});
