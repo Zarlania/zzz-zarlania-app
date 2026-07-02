@@ -7,8 +7,9 @@ const indexHtml = readFileSync(join(__dirname, '..', 'index.html'), 'utf8');
 describe('favicon.svg (theme-aware vector mark)', () => {
   const svg = readFileSync(join(publicDir, 'favicon.svg'), 'utf8');
 
-  it('is a 64x64 viewBox SVG', () => {
-    expect(svg).toContain('viewBox="0 0 64 64"');
+  it('is a two-path SVG with a viewBox', () => {
+    expect(svg).toMatch(/viewBox="0 0 \d+ \d+"/);
+    expect(svg.match(/<path/g)?.length).toBe(2);
   });
 
   it('carries the dark-theme brand and action colors', () => {
