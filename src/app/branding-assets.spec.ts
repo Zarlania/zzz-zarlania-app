@@ -104,3 +104,21 @@ describe('index.html icon/manifest wiring', () => {
     expect(indexHtml).toContain('<link rel="manifest" href="site.webmanifest"');
   });
 });
+
+// ICO directory: reserved(2)=0, type(2)=1, count(2), then count 16-byte entries
+// whose first byte is the image width (0 encodes 256).
+function icoSizes(file: string): number[] {
+  const b = readFileSync(join(publicDir, file));
+  expect(b.readUInt16LE(0)).toBe(0); // reserved
+  expect(b.readUInt16LE(2)).toBe(1); // type: icon
+  const count = b.readUInt16LE(4);
+  return Array.from({ length: count }, (_, i) => b.readUInt8(6 + i * 16) || 256);
+}
+
+describe('favicon.ico (branded multi-resolution fallback)', () => {
+  it('is a valid ICO offering at least the spec-required 16px and 32px sizes', () => {
+    const sizes = icoSizes('favicon.ico');
+    expect(sizes).toContain(16);
+    expect(sizes).toContain(32);
+  });
+});

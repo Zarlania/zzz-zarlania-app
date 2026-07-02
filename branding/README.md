@@ -18,12 +18,17 @@ wizard's staff, wings spread), gold on near-black.
   readable at 16px, bold shapes only, no fine detail."* (rendered square on #15110f)
 
 - `og-crest.png` — the **detailed** shaded crest (glowing crystal, ember accents).
-  Source for `public/og-image.png` (social preview).
+  Source for `public/og-image.jpg` (1200×630 social preview; JPEG, black-padded).
   Prompt (Concept A — dark): *"A heraldic emblem of a dragon coiled around a wizard's
   staff topped with a glowing crystal, dragon and staff fused into one sigil. Flat
   vector crest style, bold clean shapes, gold and ember-orange (#eeb03a, #e2622a) on
   near-black (#15110f). Centered, symmetrical, logo mark, no text, high contrast,
   generous negative space."*
+
+- `concept_a_favicon_source.ico` — a branded multi-resolution icon (16/24/32/48/64/
+  128/256, 32-bit RGBA) generated from the simplified mark and committed directly as
+  `public/favicon.ico` (the legacy fallback; modern browsers use `favicon.svg`). No
+  local `.ico` writer exists, so this is produced by the image tool, not `sips`.
 
 ## Regenerate
 
