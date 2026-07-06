@@ -1,10 +1,59 @@
+@use 'breakpoints' as bp;
+
 .site-header {
+  position: relative;
   display: flex;
   align-items: center;
-  gap: var(--space-4);
-  padding: var(--space-3) var(--space-6);
+  gap: var(--space-3);
+  padding: var(--space-3) var(--container-pad);
   border-bottom: 1px solid var(--color-border);
 }
+
+.bar-controls {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.menu-toggle {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+  width: 40px;
+  height: 40px;
+  padding: 0 8px;
+  background: none;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+.menu-toggle-bar {
+  display: block;
+  height: 2px;
+  background: var(--color-text);
+  border-radius: 2px;
+}
+
+.site-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: var(--space-4) var(--container-pad);
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+
+  &.open {
+    display: flex;
+  }
+}
+
 .brand {
   display: inline-flex;
   align-items: center;
@@ -18,18 +67,46 @@
 }
 .site-nav {
   display: flex;
-  gap: var(--space-4);
+  flex-direction: column;
+  gap: var(--space-3);
 }
 .site-nav a {
   color: var(--color-text-muted);
   text-decoration: none;
 }
 .header-actions {
-  margin-left: auto;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
   gap: var(--space-3);
 }
+
+@include bp.respond-to(md) {
+  .menu-toggle {
+    display: none;
+  }
+  .site-menu {
+    display: flex;
+    position: static;
+    flex: 1;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--space-4);
+    padding: 0;
+    background: none;
+    border: none;
+  }
+  .site-nav {
+    flex-direction: row;
+    gap: var(--space-4);
+  }
+  .header-actions {
+    flex-direction: row;
+    align-items: center;
+    margin-left: auto;
+  }
+}
+
 .link-login {
   color: var(--color-text);
   text-decoration: none;
