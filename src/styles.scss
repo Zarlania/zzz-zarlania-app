@@ -23,6 +23,19 @@
   --space-6: 24px;
   --space-8: 32px;
   --font-sans: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+
+  /* Fluid type scale — clamp(min, preferred + vw, max). */
+  --font-size-sm: clamp(0.8rem, 0.75rem + 0.25vw, 0.9rem);
+  --font-size-base: clamp(0.95rem, 0.9rem + 0.3vw, 1.05rem);
+  --font-size-lg: clamp(1.05rem, 0.98rem + 0.4vw, 1.2rem);
+  --font-size-xl: clamp(1.25rem, 1.1rem + 0.6vw, 1.5rem);
+  --font-size-2xl: clamp(1.5rem, 1.3rem + 0.9vw, 2rem);
+  --font-size-3xl: clamp(2rem, 1.6rem + 1.8vw, 3rem);
+
+  /* Fluid layout tokens. */
+  --container-max: 72rem;
+  --container-pad: clamp(1rem, 0.6rem + 2vw, 2rem);
+  --space-section: clamp(2.5rem, 1.8rem + 3vw, 4.5rem);
 }
 
 :root[data-theme='light'] {

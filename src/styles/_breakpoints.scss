@@ -1,0 +1,22 @@
+@use 'sass:map';
+
+// Mobile-first breakpoint scale. See ADR (responsive foundation) and
+// docs/reference responsive-and-layout-conventions.
+$breakpoints: (
+  sm: 30rem,
+  // 480px
+  md: 48rem,
+  // 768px
+  lg: 64rem, // 1024px
+);
+
+// Emit a min-width media query for a named breakpoint.
+@mixin respond-to($name) {
+  $value: map.get($breakpoints, $name);
+  @if $value == null {
+    @error "Unknown breakpoint `#{$name}`. Valid: #{map.keys($breakpoints)}.";
+  }
+  @media (min-width: $value) {
+    @content;
+  }
+}
