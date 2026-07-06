@@ -5,9 +5,9 @@ description: Adopt a fluid-first hybrid responsive foundation — clamp()-based 
   type, spacing, and container tokens as the default, plus a named sm/md/lg breakpoint
   scale exposed via a respond-to mixin for structural shifts (e.g. the header collapsing
   to a signal-driven hamburger nav below md) — CSS-first, with no new runtime dependency.
-status: proposed
+status: accepted
 date_proposed: '2026-07-05'
-date_accepted: null
+date_accepted: '2026-07-05'
 date_invalidated: null
 author: stimothy
 supersedes: []
@@ -24,9 +24,9 @@ tags:
 | ID | 0012 |
 | Name | Adopt a mobile-first responsive foundation (fluid tokens + breakpoint mixins) |
 | Description | Adopt a fluid-first hybrid responsive foundation — clamp()-based fluid type, spacing, and container tokens as the default, plus a named sm/md/lg breakpoint scale exposed via a respond-to mixin for structural shifts (e.g. the header collapsing to a signal-driven hamburger nav below md) — CSS-first, with no new runtime dependency. |
-| Status | proposed |
+| Status | accepted |
 | Date proposed | 2026-07-05 |
-| Date accepted | — |
+| Date accepted | 2026-07-05 |
 | Date invalidated | — |
 | Author | stimothy |
 | Supersedes | — |
