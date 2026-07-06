@@ -2,7 +2,9 @@
 
 Instructions for **AI code reviewers** on this repo (CodeRabbit, Codex, and any
 other automated reviewer). This file governs *how thoroughly and in what spirit*
-to review — it does **not** define the coding standards themselves.
+to review — it does **not** define the coding standards themselves. **This is a
+live, public service: merges to `master` deploy to production at
+<https://zarlania.com>.** Review accordingly.
 
 - **Source of truth is `CLAUDE.md` and the ADRs** (`docs/adrs/`). Judge changes
   against those, not against this file. This file only sets the review posture.
@@ -26,18 +28,42 @@ lenient.
 
 - **Correctness / bugs** — logic errors, edge cases, race conditions, wrong or
   missing error handling, broken contracts.
-- **Security** — input validation at boundaries, injection, secret exposure,
-  unsafe defaults, auth/authorization gaps. Never let a secret land in a commit.
+- **Security** — validate and sanitize/escape untrusted input at the boundary
+  (XSS, unsafe DOM/HTML binding, open redirects), unsafe defaults, and
+  auth/authorization gaps. Never let a secret land in a commit or the client
+  bundle — anything shipped to the browser is public.
 - **Maintainability** — DRY and SOLID, readability, single responsibility,
-  duplication that should be refactored instead of copied.
-- **Scalability / performance** — unbounded work, needless re-renders, N+1
-  patterns, choices that won't hold as the codebase grows.
+  duplication that should be refactored instead of copied. Prefer immutable data,
+  signals, and constructor-injected services over mutable state.
+- **Scalability / performance** — unbounded work, needless re-renders, missing
+  `OnPush`/`trackBy`, leaked subscriptions, choices that won't hold as the
+  codebase grows.
 - **Test quality** — tests assert observable behavior through the public surface,
   not mock interactions or internals. Coverage passing does not prove a test is
-  meaningful; flag tests that game the gate.
+  meaningful; flag meaningful gaps (untested edge cases, invariants) even when the
+  ≥ 80% gate is green, and flag tests that merely game it.
 - **Consistency with `CLAUDE.md` and the ADRs** — **ADRs are law.** Flag any
   change that contradicts an accepted ADR without a superseding one, or that
-  violates a `CLAUDE.md` rule.
+  violates a `CLAUDE.md` rule. If a change alters documented behavior, its
+  `docs/reference/` doc must be updated in the same change — flag drift.
+- **Gate integrity** — flag any newly added ESLint-disable comment, skipped or
+  `.only` test, or lowered coverage threshold used to go green instead of fixing
+  the root cause. A genuine tool bug needs a documented exception (issue plus a
+  compensating test), not a silent suppression.
+- **Release discipline** — every merge ships exactly one SemVer release. Flag a
+  missing or mismatched `package.json` version bump vs. the PR's `release:<kind>`
+  label (breaking = major, feature = minor, fix/chore = patch).
+
+## Consult the authoritative sources
+
+- **`CLAUDE.md` and accepted ADRs are law.** Query ADRs with `./scripts/adr
+  list|find "<q>"|show <id>` and reference docs with `./scripts/ref list|find
+  "<q>"|show <id>` — don't hand-scan `docs/`.
+- Judge a change against the **ADRs and the current code**, not against any merged
+  change's spec or plan — `docs/superpowers/` is frozen historical record, not a
+  standard to code against.
+- **Ignore `docs/ai-prompts/` entirely** — it is the user's private scratchpad,
+  not documentation, and says nothing about how the code should behave.
 
 ## Severity labels
 
