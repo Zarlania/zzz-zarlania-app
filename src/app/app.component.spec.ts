@@ -124,4 +124,17 @@ describe('AppComponent (shell)', () => {
     const toggle: HTMLButtonElement = fixture.nativeElement.querySelector('button.menu-toggle');
     expect(toggle.getAttribute('aria-expanded')).toBe('false');
   });
+
+  it('closes the menu when the toggle is clicked again', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    const toggle: HTMLButtonElement = fixture.nativeElement.querySelector('button.menu-toggle');
+    toggle.click();
+    fixture.detectChanges();
+    expect(toggle.getAttribute('aria-expanded')).toBe('true');
+    toggle.click();
+    fixture.detectChanges();
+    expect(toggle.getAttribute('aria-expanded')).toBe('false');
+    expect(fixture.nativeElement.querySelector('#site-menu.open')).toBeFalsy();
+  });
 });

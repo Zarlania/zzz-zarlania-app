@@ -81,8 +81,9 @@ concern.
 - **Mobile nav accessibility contract** (required for any future change to this pattern):
   - The hamburger is a real `<button>`, never a link or `div` styled to look like one.
   - Its `aria-expanded` state reflects whether the panel is open, and `aria-controls`
-    references the panel so assistive tech can associate the two; its accessible label
-    communicates open/closed intent.
+    references the panel so assistive tech can associate the two; its accessible label is
+    static (e.g. `aria-label="Menu"`) and open/closed state is exposed via `aria-expanded`
+    (bound to the menu signal), not the label text.
   - The panel is removed from layout and the accessibility tree when closed — not merely
     hidden visually.
   - Pressing Escape while the menu is open closes it.
