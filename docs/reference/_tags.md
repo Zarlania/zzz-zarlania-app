@@ -12,5 +12,7 @@ registry or doc whose tags are not sorted.
 | --- | --- |
 | architecture | System structure, boundaries, and cross-domain conventions |
 | domain-model | Domain entities, relationships, and invariants |
+| frontend | Frontend application structure, UI, and client-side conventions |
 | local-dev | Local development workflows and tooling |
+| styling | Styling, theming, and CSS/SCSS authoring conventions |
 | testing | Test strategy, layering, and conventions |
