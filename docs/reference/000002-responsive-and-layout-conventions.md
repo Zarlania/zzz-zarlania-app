@@ -59,12 +59,15 @@ concern.
   `max-width` + manual centering per component. These partials resolve without relative paths
   because `src/styles` is a configured Sass include path for the app.
 - **Fluid tokens are for continuous, page/section-level scaling; the fixed scale is for
-  component-level micro-rhythm.** A fluid type scale and fluid layout tokens (container
-  max-width, container padding, section vertical spacing) live alongside the existing
-  color/spacing custom properties and scale smoothly with viewport width via `clamp()` — use
-  these for font sizes and page/section-level spacing. The existing fixed spacing scale is
-  unchanged and stays the right choice for small, local rhythm — gaps between inline
-  elements, button/internal padding — where continuous scaling isn't wanted.
+  component-level micro-rhythm.** A fluid type scale (`--font-size-sm` … `--font-size-3xl`)
+  and the fluid layout tokens `--container-pad` (container padding) and `--space-section`
+  (section vertical spacing) live alongside the existing color/spacing custom properties and
+  scale smoothly with viewport width via `clamp()` — use these for font sizes and
+  page/section-level spacing. `--container-max` (container max-width) is a fixed value
+  (`72rem`), not `clamp()`-based — it caps content width rather than scaling continuously. The
+  existing fixed spacing scale is unchanged and stays the right choice for small, local
+  rhythm — gaps between inline elements, button/internal padding — where continuous scaling
+  isn't wanted.
 - **The two layers exist because CSS custom properties cannot drive `@media`.** A property
   like a breakpoint value cannot be read inside a `@media (min-width: ...)` condition, so the
   breakpoint scale is necessarily a build-time Sass construct (the mixin), while the type/

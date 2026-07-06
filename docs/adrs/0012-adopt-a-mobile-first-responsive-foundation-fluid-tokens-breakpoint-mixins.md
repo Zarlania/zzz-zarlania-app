@@ -91,13 +91,15 @@ express — with no new dependency.
 **Two layers**, because CSS custom properties cannot be used inside `@media` conditions
 (`@media (min-width: var(--bp-md))` does not work):
 
-1. **Runtime tokens** — fluid `clamp()`-based tokens defined in `styles.scss` `:root`
-   alongside the existing ADR-0009 color/spacing tokens: a fluid type scale
-   (`--font-size-sm` … `--font-size-3xl`) and fluid layout tokens (`--container-max`,
-   `--container-pad`, `--space-section`). These scale continuously with viewport width and
-   need no media queries. The existing fixed `--space-1..8` scale is unchanged and remains for
-   component-level micro-rhythm (gaps, button padding); fluid tokens are for page/section-level
-   scaling.
+1. **Runtime tokens** — tokens defined in `styles.scss` `:root` alongside the existing
+   ADR-0009 color/spacing tokens: a fluid type scale (`--font-size-sm` … `--font-size-3xl`)
+   and layout tokens (`--container-max`, `--container-pad`, `--space-section`). The type scale
+   and two of the three layout tokens — `--container-pad` (fluid inline padding) and
+   `--space-section` (fluid section spacing) — are `clamp()`-based and scale continuously with
+   viewport width, needing no media queries. `--container-max` is a fixed maximum content
+   width (`72rem`), not a `clamp()` value — it caps line length rather than scaling. The
+   existing fixed `--space-1..8` scale is unchanged and remains for component-level
+   micro-rhythm (gaps, button padding); the fluid tokens are for page/section-level scaling.
 2. **Build-time breakpoints** — a Sass map and mobile-first (`min-width`) `respond-to($name)`
    mixin in a new `src/styles/_breakpoints.scss`, with a named scale of `sm` (`30rem`), `md`
    (`48rem`), `lg` (`64rem`). Used only for structural shifts, not for type/spacing, which the
@@ -114,7 +116,8 @@ behind a hamburger button that toggles a dropdown panel; the theme toggle stays 
 bar. State is a `menuOpen` signal on the app component (no new dependency, `OnPush`). The
 hamburger is a real `<button>` with `aria-expanded` bound to the signal and `aria-controls`
 referencing the panel, the panel is removed from layout and the accessibility tree when closed,
-Escape closes the menu, and navigating to a new route (Router `NavigationEnd`) closes it too.
+Escape closes the menu, and each link inside the panel closes it too via a per-link
+`(click)="closeMenu()"` handler (there is no Router/`NavigationEnd` subscription).
 
 This is CSS-first: no UI/layout dependency (e.g. Angular CDK) is introduced. Container queries
 (`@container`) and Angular CDK `BreakpointObserver` are explicitly out of scope for now (see
