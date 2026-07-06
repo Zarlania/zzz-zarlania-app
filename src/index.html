@@ -1,11 +1,41 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
   <head>
     <meta charset="utf-8" />
-    <title>ZarlaniaApp</title>
+    <title>Zarlania — Command every collection you own</title>
     <base href="/" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Catalog, index, and track the value of your card collections in one vault — starting with Magic: The Gathering."
+    />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <meta name="theme-color" content="#15110f" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f3edde" media="(prefers-color-scheme: light)" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+    <link rel="manifest" href="site.webmanifest" />
+    <script>
+      // No-flash theme init: runs before first paint. Mirrors ThemeService's
+      // resolution; key must stay in sync with THEME_STORAGE_KEY ('zarlania-theme').
+      (function () {
+        var t = null;
+        try {
+          t = localStorage.getItem('zarlania-theme');
+        } catch (e) {
+          // Storage blocked/unavailable: treat as no stored value and fall back to OS preference,
+          // matching ThemeService.readInitial so light-mode users don't flash dark then correct.
+        }
+        if (t !== 'light' && t !== 'dark') {
+          try {
+            t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+          } catch (e) {
+            t = 'dark';
+          }
+        }
+        document.documentElement.setAttribute('data-theme', t);
+      })();
+    </script>
   </head>
   <body>
     <app-root></app-root>

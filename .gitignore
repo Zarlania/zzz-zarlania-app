@@ -53,3 +53,11 @@ __pycache__/
 *.pyc
 docs/ai-prompts/*
 !docs/ai-prompts/.gitkeep
+
+# Superpowers visual-companion brainstorming scratch files
+.superpowers/
+
+# Branding master art — large regenerable inputs (see branding/README.md for the
+# prompts). The derived, web-optimized deliverables are committed under public/.
+/branding/*.png
+/branding/*.ico

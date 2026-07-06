@@ -1,0 +1,11 @@
+.logo {
+  display: inline-flex;
+  align-items: center;
+}
+/* Two-tone mark themes with the palette: wings/prongs = brand, body/crystal = action. */
+.primary {
+  fill: var(--color-brand);
+}
+.accent {
+  fill: var(--color-action);
+}

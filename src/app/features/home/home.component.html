@@ -1,0 +1,23 @@
+<section class="home">
+  @if (account(); as acc) {
+    <h1>Welcome, {{ acc.user.username }}.</h1>
+    <p class="sub">Your vault is ready.</p>
+    <dl class="account-card">
+      <dt>Account</dt>
+      <dd>{{ acc.user.email }}</dd>
+      <dt>Personal organization</dt>
+      <dd>{{ acc.personalOrganization.name }}</dd>
+    </dl>
+  } @else {
+    <h1>Welcome to your vault</h1>
+    <p class="sub">Your vault is ready.</p>
+  }
+
+  <div class="teaser">
+    <span class="teaser-icon" aria-hidden="true">✦</span>
+    <div>
+      <p class="teaser-title">Magic: The Gathering</p>
+      <p class="teaser-sub">Your first collection space — coming soon.</p>
+    </div>
+  </div>
+</section>

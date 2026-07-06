@@ -1,0 +1,8 @@
+.field-error,
+.form-error {
+  color: var(--color-action);
+  font-size: 0.78rem;
+}
+.form-error {
+  margin: 0 0 var(--space-3);
+}
