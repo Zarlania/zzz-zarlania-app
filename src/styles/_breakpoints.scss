@@ -13,7 +13,7 @@ $breakpoints: (
 // Emit a min-width media query for a named breakpoint.
 @mixin respond-to($name) {
   $value: map.get($breakpoints, $name);
-  @if $value == null {
+  @if not $value {
     @error "Unknown breakpoint `#{$name}`. Valid: #{map.keys($breakpoints)}.";
   }
   @media (min-width: $value) {

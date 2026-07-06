@@ -89,6 +89,9 @@ concern.
   - Pressing Escape while the menu is open closes it.
   - Activating a link inside the panel (completing a navigation) closes the menu — it must
     not stay open after the route changes.
+  - Closing the menu (Escape or activating a link) returns focus to the hamburger button so
+    keyboard and screen-reader users keep their place; closing is a no-op when the menu is
+    already closed, so Escape elsewhere never steals focus to the hamburger.
   - Focus indication uses the app's existing focus-visible styling; do not introduce a
     separate focus treatment for nav-panel controls.
 - **Component SCSS correctness is verified by `ng build`, not by the unit-test suite.** Jest

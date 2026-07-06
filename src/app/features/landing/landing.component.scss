@@ -12,6 +12,7 @@
 }
 .hero {
   @include layout.container;
+
   padding-block: var(--space-section);
 }
 .hero h1 {
@@ -48,6 +49,7 @@
 }
 .section {
   @include layout.container;
+
   padding-block: var(--space-section);
   border-top: 1px solid var(--color-border);
 }
