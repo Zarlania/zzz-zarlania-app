@@ -2,7 +2,7 @@
 .auth {
   max-width: 24rem;
   margin: 0 auto;
-  padding: var(--space-8) var(--space-6);
+  padding: var(--space-8) var(--container-pad);
 }
 .sub {
   color: var(--color-text-muted);
@@ -43,5 +43,5 @@
 .alt {
   margin-top: var(--space-4);
   color: var(--color-text-muted);
-  font-size: 0.85rem;
+  font-size: var(--font-size-sm);
 }

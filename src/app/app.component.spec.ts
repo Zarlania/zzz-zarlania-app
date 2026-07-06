@@ -82,4 +82,85 @@ describe('AppComponent (shell)', () => {
     expect(footerHrefs).toContain('/signup');
     expect(footerHrefs).toContain('/login');
   });
+
+  it('renders a menu toggle button that is collapsed by default', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    const toggle: HTMLButtonElement = fixture.nativeElement.querySelector('button.menu-toggle');
+    expect(toggle).toBeTruthy();
+    expect(toggle.getAttribute('aria-controls')).toBe('site-menu');
+    expect(toggle.getAttribute('aria-expanded')).toBe('false');
+  });
+
+  it('opens the menu when the toggle is clicked', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    const toggle: HTMLButtonElement = fixture.nativeElement.querySelector('button.menu-toggle');
+    toggle.click();
+    fixture.detectChanges();
+    expect(toggle.getAttribute('aria-expanded')).toBe('true');
+    expect(fixture.nativeElement.querySelector('#site-menu.open')).toBeTruthy();
+  });
+
+  it('closes the menu when a menu link is activated', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    const toggle: HTMLButtonElement = fixture.nativeElement.querySelector('button.menu-toggle');
+    toggle.click();
+    fixture.detectChanges();
+    const link: HTMLAnchorElement = fixture.nativeElement.querySelector('#site-menu a');
+    link.click();
+    fixture.detectChanges();
+    expect(toggle.getAttribute('aria-expanded')).toBe('false');
+  });
+
+  it('closes the menu when Escape is pressed', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    const toggle: HTMLButtonElement = fixture.nativeElement.querySelector('button.menu-toggle');
+    toggle.click();
+    fixture.detectChanges();
+    document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
+    fixture.detectChanges();
+    expect(toggle.getAttribute('aria-expanded')).toBe('false');
+  });
+
+  it('returns focus to the toggle button when the menu closes', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    document.body.appendChild(fixture.nativeElement);
+    fixture.detectChanges();
+    const toggle: HTMLButtonElement = fixture.nativeElement.querySelector('button.menu-toggle');
+    toggle.click();
+    fixture.detectChanges();
+    document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
+    fixture.detectChanges();
+    expect(document.activeElement).toBe(toggle);
+    fixture.destroy();
+    fixture.nativeElement.remove();
+  });
+
+  it('does not steal focus when Escape is pressed while the menu is closed', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    document.body.appendChild(fixture.nativeElement);
+    fixture.detectChanges();
+    const toggle: HTMLButtonElement = fixture.nativeElement.querySelector('button.menu-toggle');
+    document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
+    fixture.detectChanges();
+    expect(document.activeElement).not.toBe(toggle);
+    fixture.destroy();
+    fixture.nativeElement.remove();
+  });
+
+  it('closes the menu when the toggle is clicked again', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    const toggle: HTMLButtonElement = fixture.nativeElement.querySelector('button.menu-toggle');
+    toggle.click();
+    fixture.detectChanges();
+    expect(toggle.getAttribute('aria-expanded')).toBe('true');
+    toggle.click();
+    fixture.detectChanges();
+    expect(toggle.getAttribute('aria-expanded')).toBe('false');
+    expect(fixture.nativeElement.querySelector('#site-menu.open')).toBeFalsy();
+  });
 });

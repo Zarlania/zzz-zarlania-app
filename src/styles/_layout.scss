@@ -1,0 +1,8 @@
+// Centered content column with fluid side gutters. Relies on the
+// --container-max / --container-pad tokens defined in styles.scss.
+@mixin container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--container-pad);
+}
