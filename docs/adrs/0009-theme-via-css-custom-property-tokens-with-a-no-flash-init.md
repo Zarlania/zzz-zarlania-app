@@ -1,10 +1,12 @@
 ---
 id: 0009
 name: Theme via CSS custom-property tokens with a no-flash init
-description: 'Define light and dark theming as semantic CSS custom-property tokens switched by a data-theme attribute on the document root, with a pre-boot inline script that sets the initial theme before first paint to avoid a flash.'
-status: proposed
+description: Define light and dark theming as semantic CSS custom-property tokens
+  switched by a data-theme attribute on the document root, with a pre-boot inline
+  script that sets the initial theme before first paint to avoid a flash.
+status: accepted
 date_proposed: '2026-07-01'
-date_accepted: null
+date_accepted: '2026-07-05'
 date_invalidated: null
 author: stimothy
 supersedes: []
@@ -20,9 +22,9 @@ tags:
 | ID | 0009 |
 | Name | Theme via CSS custom-property tokens with a no-flash init |
 | Description | Define light and dark theming as semantic CSS custom-property tokens switched by a data-theme attribute on the document root, with a pre-boot inline script that sets the initial theme before first paint to avoid a flash. |
-| Status | proposed |
+| Status | accepted |
 | Date proposed | 2026-07-01 |
-| Date accepted | — |
+| Date accepted | 2026-07-05 |
 | Date invalidated | — |
 | Author | stimothy |
 | Supersedes | — |

@@ -10,53 +10,8 @@ import { ApiService } from '../../../api.service';
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ReactiveFormsModule, RouterLink],
-  template: `
-    <section class="auth">
-      <h1>Create your vault</h1>
-      <p class="sub">Start cataloging in minutes.</p>
-
-      <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
-        <label class="field">
-          <span>Email</span>
-          <input type="email" formControlName="email" autocomplete="email" />
-          @if (showError('email')) {
-            <span class="field-error">Enter a valid email (max 320 characters).</span>
-          }
-        </label>
-
-        <label class="field">
-          <span>Username</span>
-          <input type="text" formControlName="username" autocomplete="username" />
-          @if (showError('username')) {
-            <span class="field-error">A username is required (max 100 characters).</span>
-          }
-        </label>
-
-        @if (errorMessage()) {
-          <p class="form-error" role="alert">{{ errorMessage() }}</p>
-        }
-
-        <button type="submit" class="btn-primary" [disabled]="form.invalid || submitting()">
-          {{ submitting() ? 'Creating…' : 'Create account' }}
-        </button>
-      </form>
-
-      <p class="alt">Already have one? <a routerLink="/login">Log in</a></p>
-    </section>
-  `,
-  styleUrls: ['../auth-forms.css'],
-  styles: [
-    `
-      .field-error,
-      .form-error {
-        color: var(--color-action);
-        font-size: 0.78rem;
-      }
-      .form-error {
-        margin: 0 0 var(--space-3);
-      }
-    `,
-  ],
+  templateUrl: './signup.component.html',
+  styleUrls: ['../auth-forms.scss', './signup.component.scss'],
 })
 export class SignupComponent {
   private readonly fb = inject(FormBuilder);

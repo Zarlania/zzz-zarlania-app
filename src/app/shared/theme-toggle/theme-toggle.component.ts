@@ -5,26 +5,8 @@ import { ThemeService } from '../../core/theme/theme.service';
   selector: 'app-theme-toggle',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
-    <button type="button" class="theme-toggle" [attr.aria-label]="label()" (click)="onToggle()">
-      {{ icon() }}
-    </button>
-  `,
-  styles: [
-    `
-      .theme-toggle {
-        background: var(--color-surface);
-        color: var(--color-brand);
-        border: 1px solid var(--color-border);
-        border-radius: var(--radius-md);
-        width: 36px;
-        height: 36px;
-        cursor: pointer;
-        font-size: 1rem;
-        line-height: 1;
-      }
-    `,
-  ],
+  templateUrl: './theme-toggle.component.html',
+  styleUrl: './theme-toggle.component.scss',
 })
 export class ThemeToggleComponent {
   private readonly themeService = inject(ThemeService);

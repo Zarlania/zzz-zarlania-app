@@ -7,42 +7,8 @@ import { Router, RouterLink } from '@angular/router';
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ReactiveFormsModule, RouterLink],
-  template: `
-    <section class="auth">
-      <h1>Welcome back</h1>
-      <p class="sub">Log in to your vault.</p>
-
-      <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
-        <label class="field">
-          <span>Email</span>
-          <input type="email" formControlName="email" autocomplete="email" />
-        </label>
-        <label class="field">
-          <span>Password</span>
-          <input type="password" formControlName="password" autocomplete="current-password" />
-        </label>
-
-        <button type="submit" class="btn-primary" [disabled]="form.invalid">Log in</button>
-      </form>
-
-      <p class="alt">New here? <a routerLink="/signup">Create a vault</a></p>
-      <p class="mock-note">
-        Mock only — authentication isn't wired up yet; any valid input continues to your vault.
-      </p>
-    </section>
-  `,
-  styleUrls: ['../auth-forms.css'],
-  styles: [
-    `
-      .mock-note {
-        margin-top: var(--space-3);
-        color: var(--color-text-muted);
-        font-size: 0.72rem;
-        font-style: italic;
-        opacity: 0.7;
-      }
-    `,
-  ],
+  templateUrl: './login.component.html',
+  styleUrls: ['../auth-forms.scss', './login.component.scss'],
 })
 export class LoginComponent {
   private readonly fb = inject(FormBuilder);

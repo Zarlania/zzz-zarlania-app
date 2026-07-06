@@ -1,10 +1,12 @@
 ---
 id: '0010'
 name: Adopt the Angular Router with a standalone app shell
-description: 'Introduce the Angular Router with lazy standalone route components and a single app-shell (header, theme toggle, router-outlet, footer), organizing feature code feature-first with core and shared areas for cross-cutting concerns.'
-status: proposed
+description: Introduce the Angular Router with lazy standalone route components and
+  a single app-shell (header, theme toggle, router-outlet, footer), organizing feature
+  code feature-first with core and shared areas for cross-cutting concerns.
+status: accepted
 date_proposed: '2026-07-01'
-date_accepted: null
+date_accepted: '2026-07-05'
 date_invalidated: null
 author: stimothy
 supersedes: []
@@ -20,9 +22,9 @@ tags:
 | ID | 0010 |
 | Name | Adopt the Angular Router with a standalone app shell |
 | Description | Introduce the Angular Router with lazy standalone route components and a single app-shell (header, theme toggle, router-outlet, footer), organizing feature code feature-first with core and shared areas for cross-cutting concerns. |
-| Status | proposed |
+| Status | accepted |
 | Date proposed | 2026-07-01 |
-| Date accepted | — |
+| Date accepted | 2026-07-05 |
 | Date invalidated | — |
 | Author | stimothy |
 | Supersedes | — |

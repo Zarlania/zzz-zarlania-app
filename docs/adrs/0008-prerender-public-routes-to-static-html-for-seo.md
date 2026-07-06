@@ -1,10 +1,12 @@
 ---
 id: 0008
 name: Prerender public routes to static HTML for SEO
-description: 'Prerender the public landing route to static HTML at build time via @angular/ssr static output, so crawlers get fully-rendered content while the app still deploys as static files on nginx with no runtime Node server.'
-status: proposed
+description: Prerender the public landing route to static HTML at build time via @angular/ssr
+  static output, so crawlers get fully-rendered content while the app still deploys
+  as static files on nginx with no runtime Node server.
+status: accepted
 date_proposed: '2026-07-01'
-date_accepted: null
+date_accepted: '2026-07-05'
 date_invalidated: null
 author: stimothy
 supersedes: []
@@ -21,9 +23,9 @@ tags:
 | ID | 0008 |
 | Name | Prerender public routes to static HTML for SEO |
 | Description | Prerender the public landing route to static HTML at build time via @angular/ssr static output, so crawlers get fully-rendered content while the app still deploys as static files on nginx with no runtime Node server. |
-| Status | proposed |
+| Status | accepted |
 | Date proposed | 2026-07-01 |
-| Date accepted | — |
+| Date accepted | 2026-07-05 |
 | Date invalidated | — |
 | Author | stimothy |
 | Supersedes | — |
