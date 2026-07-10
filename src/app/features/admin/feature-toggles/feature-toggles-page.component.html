@@ -1,13 +1,16 @@
 <main class="page">
   <h1 class="page__title">Feature toggles</h1>
+  <p class="page__intro">
+    Set each toggle's global rollout percentage, or override it for a specific organization.
+  </p>
 
   @if (loading()) {
-    <p data-test="loading">Loading feature toggles…</p>
+    <p class="page__status" data-test="loading">Loading feature toggles…</p>
   } @else if (loadError()) {
-    <p role="alert">Could not load feature toggles.</p>
+    <p class="page__error" role="alert">Could not load feature toggles.</p>
     <button type="button" data-test="retry" (click)="load()">Retry</button>
   } @else if (toggles().length === 0) {
-    <p data-test="empty">No feature toggles are registered.</p>
+    <p class="page__status" data-test="empty">No feature toggles are registered.</p>
   } @else {
     <div class="page__list">
       @for (toggle of toggles(); track toggle.name) {
