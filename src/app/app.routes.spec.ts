@@ -44,4 +44,14 @@ describe('app routes', () => {
   it('renders the not-found page for unknown paths', async () => {
     expect(await navigateAndRead('/nope')).toContain('Page not found');
   });
+
+  it('renders the feature toggles admin page at /admin/feature-toggles', async () => {
+    const { FeatureToggleAdminService } =
+      await import('./features/admin/feature-toggles/feature-toggle-admin.service');
+    const { of } = await import('rxjs');
+    TestBed.overrideProvider(FeatureToggleAdminService, {
+      useValue: { list: () => of([]) },
+    });
+    expect(await navigateAndRead('/admin/feature-toggles')).toContain('Feature toggles');
+  });
 });
