@@ -37,7 +37,8 @@ describe('FeatureToggleCardComponent', () => {
     const text = fixture.nativeElement.textContent as string;
     expect(text).toContain('feature-service-canary');
     expect(text).toContain(organizationId);
-    expect(text).toContain('75');
+    const overrideInput = query<HTMLInputElement>(fixture, '[data-test="override-percentage"]');
+    expect(overrideInput.value).toBe('75');
   });
 
   it('emits 0 when Off is clicked and 100 when On is clicked', () => {

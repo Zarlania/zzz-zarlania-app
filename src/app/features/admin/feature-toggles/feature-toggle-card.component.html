@@ -43,7 +43,6 @@
     @for (override of toggle().organizationOverrides; track override.organizationId) {
       <li class="card__row">
         <code class="card__organization">{{ override.organizationId }}</code>
-        <span>{{ override.percentage }}%</span>
         <input
           #overridePercentage
           data-test="override-percentage"
