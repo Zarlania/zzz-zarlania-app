@@ -1,0 +1,122 @@
+/* Feature-toggle card. Uses the app's semantic design tokens only (see styles.scss). */
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+}
+
+.card__name {
+  margin: 0;
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  word-break: break-word;
+}
+
+.card__row,
+.card__add {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.card__overrides {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.card__label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+.card__organization {
+  font-family: ui-monospace, 'SFMono-Regular', 'Menlo', monospace;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: var(--space-1) var(--space-2);
+  word-break: break-all;
+}
+
+.card__empty {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+.card__error {
+  margin: 0;
+  color: var(--color-action);
+  font-size: var(--font-size-sm);
+}
+
+/* Inputs mirror the auth feature's form fields. */
+.card input {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-2) var(--space-3);
+  color: var(--color-text);
+  font: inherit;
+}
+
+.card input[type='number'] {
+  width: 4.5rem;
+}
+
+.card input[type='text'] {
+  flex: 1 1 12rem;
+  min-width: 0;
+}
+
+/* Buttons share a subtle base; the commit actions (Apply / Save) are primary. */
+.card button {
+  background: var(--color-surface);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-2) var(--space-3);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    border-color 0.15s ease,
+    background-color 0.15s ease;
+}
+
+.card button:hover:not(:disabled) {
+  border-color: var(--color-action);
+}
+
+.card button:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+.card button[data-test='global-apply'],
+.card button[data-test='override-apply'],
+.card button[data-test='add-save'] {
+  background: var(--color-action);
+  color: var(--color-on-action);
+  border-color: var(--color-action);
+}
+
+.card button[data-test='global-apply']:hover:not(:disabled),
+.card button[data-test='override-apply']:hover:not(:disabled),
+.card button[data-test='add-save']:hover:not(:disabled) {
+  background: var(--color-action-hover);
+  border-color: var(--color-action-hover);
+}

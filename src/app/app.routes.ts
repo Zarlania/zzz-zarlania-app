@@ -21,6 +21,13 @@ export const routes: Routes = [
     loadComponent: () => import('./features/home/home.component').then((m) => m.HomeComponent),
   },
   {
+    path: 'admin/feature-toggles',
+    loadComponent: () =>
+      import('./features/admin/feature-toggles/feature-toggles-page.component').then(
+        (m) => m.FeatureTogglesPageComponent,
+      ),
+  },
+  {
     path: '**',
     loadComponent: () =>
       import('./features/not-found/not-found.component').then((m) => m.NotFoundComponent),
