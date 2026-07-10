@@ -9,6 +9,7 @@
       type="number"
       min="0"
       max="100"
+      aria-label="Global rollout percentage"
       [value]="toggle().percentage"
       [disabled]="pending()"
     />
@@ -49,6 +50,7 @@
           type="number"
           min="0"
           max="100"
+          [attr.aria-label]="'Rollout percentage for organization ' + override.organizationId"
           [value]="override.percentage"
           [disabled]="pending()"
         />
@@ -81,6 +83,7 @@
       data-test="add-organization-id"
       type="text"
       placeholder="organization UUID"
+      aria-label="Organization UUID for a new override"
       formControlName="organizationId"
     />
     <input
@@ -88,6 +91,7 @@
       type="number"
       min="0"
       max="100"
+      aria-label="Rollout percentage for the new override"
       formControlName="percentage"
     />
     <span>%</span>
@@ -100,6 +104,10 @@
       Save override
     </button>
   </div>
+
+  @if (validationError()) {
+    <p class="card__error" role="alert" data-test="validation-error">{{ validationError() }}</p>
+  }
 
   @if (errorMessage()) {
     <p class="card__error" role="alert">{{ errorMessage() }}</p>

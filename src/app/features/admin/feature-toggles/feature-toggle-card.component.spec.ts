@@ -134,4 +134,43 @@ describe('FeatureToggleCardComponent', () => {
     query<HTMLButtonElement>(fixture, '[data-test="global-apply"]').click();
     expect(emitted).toBe(100);
   });
+
+  it('does not emit and shows a validation error when the global percentage is cleared', () => {
+    const fixture = setup();
+    let emitted = false;
+    fixture.componentInstance.setGlobalPercentage.subscribe(() => (emitted = true));
+    setValue(query<HTMLInputElement>(fixture, '[data-test="global-percentage"]'), '');
+    query<HTMLButtonElement>(fixture, '[data-test="global-apply"]').click();
+    fixture.detectChanges();
+    expect(emitted).toBe(false);
+    expect(query(fixture, '[data-test="validation-error"]')).not.toBeNull();
+  });
+
+  it('does not emit and shows a validation error when an existing override is cleared', () => {
+    const fixture = setup();
+    let emitted = false;
+    fixture.componentInstance.setOrganizationOverride.subscribe(() => (emitted = true));
+    setValue(query<HTMLInputElement>(fixture, '[data-test="override-percentage"]'), '');
+    query<HTMLButtonElement>(fixture, '[data-test="override-apply"]').click();
+    fixture.detectChanges();
+    expect(emitted).toBe(false);
+    expect(query(fixture, '[data-test="validation-error"]')).not.toBeNull();
+  });
+
+  it('clears the validation error and emits once a valid value is applied', () => {
+    const fixture = setup();
+    let emitted: number | undefined;
+    fixture.componentInstance.setGlobalPercentage.subscribe((p) => (emitted = p));
+    const input = query<HTMLInputElement>(fixture, '[data-test="global-percentage"]');
+    setValue(input, '');
+    query<HTMLButtonElement>(fixture, '[data-test="global-apply"]').click();
+    fixture.detectChanges();
+    expect(query(fixture, '[data-test="validation-error"]')).not.toBeNull();
+
+    setValue(input, '60');
+    query<HTMLButtonElement>(fixture, '[data-test="global-apply"]').click();
+    fixture.detectChanges();
+    expect(emitted).toBe(60);
+    expect(query(fixture, '[data-test="validation-error"]')).toBeNull();
+  });
 });
