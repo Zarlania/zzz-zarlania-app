@@ -1,0 +1,108 @@
+<section class="card">
+  <h2 class="card__name">{{ toggle().name }}</h2>
+
+  <div class="card__row">
+    <span class="card__label">Global</span>
+    <input
+      #global
+      data-test="global-percentage"
+      type="number"
+      min="0"
+      max="100"
+      [value]="toggle().percentage"
+      [disabled]="pending()"
+    />
+    <span>%</span>
+    <button
+      type="button"
+      data-test="global-apply"
+      [disabled]="pending()"
+      (click)="applyGlobal(global.value)"
+    >
+      Apply
+    </button>
+    <button
+      type="button"
+      data-test="global-off"
+      [disabled]="pending()"
+      (click)="setGlobalPercentage.emit(0)"
+    >
+      Off
+    </button>
+    <button
+      type="button"
+      data-test="global-on"
+      [disabled]="pending()"
+      (click)="setGlobalPercentage.emit(100)"
+    >
+      On
+    </button>
+  </div>
+
+  <ul class="card__overrides">
+    @for (override of toggle().organizationOverrides; track override.organizationId) {
+      <li class="card__row">
+        <code class="card__organization">{{ override.organizationId }}</code>
+        <span>{{ override.percentage }}%</span>
+        <input
+          #overridePercentage
+          data-test="override-percentage"
+          type="number"
+          min="0"
+          max="100"
+          [value]="override.percentage"
+          [disabled]="pending()"
+        />
+        <span>%</span>
+        <button
+          type="button"
+          data-test="override-apply"
+          [disabled]="pending()"
+          (click)="applyOverride(override.organizationId, overridePercentage.value)"
+        >
+          Apply
+        </button>
+        <button
+          type="button"
+          data-test="override-remove"
+          [disabled]="pending()"
+          (click)="removeOrganizationOverride.emit(override.organizationId)"
+        >
+          Remove
+        </button>
+      </li>
+    } @empty {
+      <li class="card__empty">No organization overrides.</li>
+    }
+  </ul>
+
+  <div class="card__add" [formGroup]="addForm">
+    <span class="card__label">Add / replace override</span>
+    <input
+      data-test="add-organization-id"
+      type="text"
+      placeholder="organization UUID"
+      formControlName="organizationId"
+    />
+    <input
+      data-test="add-percentage"
+      type="number"
+      min="0"
+      max="100"
+      formControlName="percentage"
+    />
+    <span>%</span>
+    <button
+      type="button"
+      data-test="add-save"
+      [disabled]="pending() || addForm.invalid"
+      (click)="saveNewOverride()"
+    >
+      Save override
+    </button>
+  </div>
+
+  @if (errorMessage()) {
+    <p class="card__error" role="alert">{{ errorMessage() }}</p>
+  }
+</section>
