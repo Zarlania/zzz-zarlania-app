@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, inject, input, output } from '@angu
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FeatureToggle } from './feature-toggle.models';
 
-/** Matches a canonical lowercase UUID (the form the backend uses for organization ids). */
+/** Matches a canonical UUID form (case-insensitive). */
 const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
 /**
@@ -19,7 +19,7 @@ const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{
   styleUrl: './feature-toggle-card.component.scss',
 })
 export class FeatureToggleCardComponent {
-  private readonly fb = inject(FormBuilder);
+  private readonly formBuilder = inject(FormBuilder);
 
   readonly toggle = input.required<FeatureToggle>();
   readonly pending = input<boolean>(false);
@@ -29,7 +29,7 @@ export class FeatureToggleCardComponent {
   readonly setOrganizationOverride = output<{ organizationId: string; percentage: number }>();
   readonly removeOrganizationOverride = output<string>();
 
-  readonly addForm = this.fb.nonNullable.group({
+  readonly addForm = this.formBuilder.nonNullable.group({
     organizationId: ['', [Validators.required, Validators.pattern(UUID_PATTERN)]],
     percentage: [0, [Validators.required, Validators.min(0), Validators.max(100)]],
   });
@@ -50,7 +50,10 @@ export class FeatureToggleCardComponent {
       return;
     }
     const { organizationId, percentage } = this.addForm.getRawValue();
-    this.setOrganizationOverride.emit({ organizationId, percentage });
+    this.setOrganizationOverride.emit({
+      organizationId,
+      percentage: this.clampPercentage(String(percentage)),
+    });
     this.addForm.reset({ organizationId: '', percentage: 0 });
   }
 

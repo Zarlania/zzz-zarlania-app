@@ -113,4 +113,24 @@ describe('FeatureToggleCardComponent', () => {
     fixture.detectChanges();
     expect(fixture.nativeElement.textContent).toContain('Update failed');
   });
+
+  it('emits an integer percentage (truncated) when a fractional value is entered in the add-override form', () => {
+    const fixture = setup({ organizationOverrides: [] });
+    let emitted: { organizationId: string; percentage: number } | undefined;
+    fixture.componentInstance.setOrganizationOverride.subscribe((e) => (emitted = e));
+    setValue(query<HTMLInputElement>(fixture, '[data-test="add-organization-id"]'), organizationId);
+    setValue(query<HTMLInputElement>(fixture, '[data-test="add-percentage"]'), '30.5');
+    fixture.detectChanges();
+    query<HTMLButtonElement>(fixture, '[data-test="add-save"]').click();
+    expect(emitted).toEqual({ organizationId, percentage: 30 });
+  });
+
+  it('emits 100 when an out-of-range value (150) is entered for global percentage', () => {
+    const fixture = setup();
+    let emitted: number | undefined;
+    fixture.componentInstance.setGlobalPercentage.subscribe((p) => (emitted = p));
+    setValue(query<HTMLInputElement>(fixture, '[data-test="global-percentage"]'), '150');
+    query<HTMLButtonElement>(fixture, '[data-test="global-apply"]').click();
+    expect(emitted).toBe(100);
+  });
 });
